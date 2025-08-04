@@ -17,6 +17,16 @@ export interface UserModelInterface {
 }
 
 
+export interface SellerModelInterface extends Document {
+  _id: mongoose.Type.ObjectId;
+  name: string;
+  location: string;
+  contact: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+
 export interface AddressInterface {
   place?: string;
   latitude?: string;
