@@ -23,7 +23,7 @@ class App {
   }
 
   private initializeRoutes(): void {
-    this.app.use('/api', router);
+    this.app.use('/api/v1', router);
   }
 
   private initializeErrorHandling(): void {
