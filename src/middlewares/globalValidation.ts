@@ -1,13 +1,13 @@
 import { Response, Request, NextFunction } from 'express';
 import Joi from 'joi';
 
-import { deriveValidationError } from '../utils/validation/deriveValidationError';
+import { sellerValidationError } from '../utils/validation/sellerValidationError';
 
 const inputMiddleware =
   (schemaValidation: Joi.ObjectSchema<unknown>) => (req: Request, res: Response, next: NextFunction) => {
     const { value, error } = schemaValidation.validate(req.body, { abortEarly: false });
     if (error) {
-      const errorResponse = deriveValidationError(error);
+      const errorResponse = sellerValidationError(error);
       res.status(400).json({
         error: errorResponse,
         success: false,

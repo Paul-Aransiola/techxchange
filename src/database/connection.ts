@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
+import { MONGO_URI, MONGO_DB_NAME } from '../config'
 
 const mongoConnectionInit = () => {
-  const { MONGO_URI, MONGO_DB_NAME } = process.env;
+ 
   mongoose
     .connect(`${MONGO_URI}/${MONGO_DB_NAME}`)
     .then(() => console.log('Connected to MongoDB'))

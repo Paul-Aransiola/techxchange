@@ -45,14 +45,14 @@ const registerUser = Joi.object({
 
 
 const signInUser = Joi.object({
-  phoneNumber: Joi.string()
-    .regex(/\+\d{3}\d{9}/)
+  email: Joi.string()
+    .email()
     .required()
     .messages({
-      'string.base': 'Phone number should be a type of string',
-      'string.empty': 'Phone number cannot be empty',
-      'string.regex': 'Phone number must be a valid phone number',
-      'any.required': 'Phone number is a required field',
+      'string.base': 'Email  should be a type of string',
+      'string.empty': 'Email  cannot be empty',
+      'string.regex': 'Email  must be a valid email ',
+      'any.required': 'Email  is a required field',
     }),
   password: Joi.string()
     .min(8)

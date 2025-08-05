@@ -6,7 +6,6 @@ import { registerInputType, signInInputType } from './types/controller';
 import { authenticationService } from '../services/auth';
 
 
-
 const userRegistrationHandler = async (req: Request, res: Response) => {
   try {
     const { user, token } = await authenticationService.registerUser(req.body as registerInputType);
@@ -30,12 +29,16 @@ const userRegistrationHandler = async (req: Request, res: Response) => {
 
 const userSignInHandler = async (req: Request, res: Response) => {
   try {
-    const { user } = await authenticationService.signInUser(req.body as signInInputType);
+    const { user, token } = await authenticationService.signInUser(req.body as signInInputType);
 
     logger.info(`User signed in: ${user._id}`);
     res.status(200).json({
       success: true,
-      message: 'Check your phone to complete sign-in.',
+      message: 'Sign in complete.',
+      data: {
+        token,
+        user
+      }
     });
   } catch (error: unknown) {
     logger.error(error);

@@ -1,5 +1,3 @@
-import crypto from 'crypto';
-
 import { hash } from 'bcrypt';
 
 import { userModel } from '../../database/models';
@@ -15,29 +13,11 @@ export const isDateExpired = (date: Date): boolean => {
   return now > expirationTime ? true : false
 };
 
-// Generate a random string of a given length from a set of allowed characters
-const getRandomString = (length: number, allowedChars: string): string => {
-  let result = '';
-  const charsLength = allowedChars.length;
-  for (let i = 0; i < length; i++) {
-    const randomIndex = crypto.randomInt(0, charsLength);
-    result += allowedChars[randomIndex];
-  }
-  return result;
-};
-
-export const uniqueNumberGenerator = (length = 5, allowedChars = '0123456789'): string => {
-  const unique = getRandomString(length, allowedChars);
-  return unique;
-};
 
 export const generatePassword = (password: string, saltRound: number = 10) => {
   return hash(password, saltRound);
 };
 
-export const generateOTP = async () => {
-  return uniqueNumberGenerator(parseInt(process.env.OTP_LENGTH || '5'));
-};
 
 
 // Helper to check for existing user by email or phone

@@ -20,13 +20,6 @@ const UserSchema = new Schema<UserModelInterface>({
     lowercase: true,
     trim: true,
   },
-  phoneNumber: {
-    type: String,
-    unique: true,
-    required: true,
-    lowercase: true,
-    trim: true,
-  },
   email: {
     type: String,
     unique: true,
