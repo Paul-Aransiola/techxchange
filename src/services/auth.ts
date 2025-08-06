@@ -4,6 +4,7 @@ import { sellerModel, userModel } from '../database/models';
 import { checkUserPhoneOrEmailExistence, generateUserToken } from '../utils/util/helpers';
 import { registerInputType, signInInputType } from '../controllers/types/controller';
 import { mongooseTransaction } from '../database/utils';
+import { ROLES } from '../utils/util/constants';
 
 
 const registerUser = async (payload: registerInputType) => {
@@ -18,7 +19,9 @@ const registerUser = async (payload: registerInputType) => {
       const [newUser] = await userModel.create([{ phoneNumber, firstName, lastName, email, password, role }], {
         session,
       });
-      await sellerModel.create([{ user: newUser._id }], { session });
+      
+      if (role === ROLES.SELLER) await sellerModel.create([{ user: newUser._id }], { session });
+      
       return { user: newUser };
     });
   

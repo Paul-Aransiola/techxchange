@@ -4,12 +4,12 @@ import { sellerModel } from '../database/models';
 
 
 const getAllSellers = async (): Promise<SellerModelInterface[]> => {
-  return await sellerModel.find();
+  return await sellerModel.find().populate('user');
 };
 
 
 const getSellerById = async (user_id: string) => {
-  const seller = await sellerModel.findOne({ user: user_id });
+  const seller = await sellerModel.findOne({ user: user_id }).populate('user');
 
   if (!seller) {
     throw new Error('Seller not found.');

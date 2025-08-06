@@ -27,6 +27,13 @@ const UserSchema = new Schema<UserModelInterface>({
     lowercase: true, 
     trim: true, 
   },
+  phoneNumber: {
+    type: String,
+    unique: true,
+    required: false,
+    lowercase: true, 
+    trim: true, 
+  },
   role: {
     type: String,
     enum: Object.values(ROLES_TYPE),

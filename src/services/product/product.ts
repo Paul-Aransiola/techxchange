@@ -1,7 +1,7 @@
-import { ProductModelInterFace } from "../@types/model";
-import { productInputType } from "../controllers/types/controller";
-import { productModel, sellerModel } from "../database/models";
-import { mongooseTransaction } from "../database/utils";
+import { ProductModelInterFace } from "../../@types/model";
+import { productInputType } from "../../controllers/types/controller";
+import { productModel, sellerModel } from "../../database/models";
+import { mongooseTransaction } from "../../database/utils";
 
 
 const getAllProducts = async (): Promise<ProductModelInterFace[]> => {
