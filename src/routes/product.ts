@@ -7,7 +7,7 @@ import { ROLES } from '../utils/util/constants';
 
 const ProductRouter = Router();
 
-// Product routes
+
 ProductRouter.get('/', productHandler.getAllProductsHandler);
 ProductRouter.get('/:id', productHandler.getProductHandler);
 ProductRouter.post(
