@@ -40,3 +40,15 @@ export interface BankDetailsInterface {
     accountName?: string
 }
 
+export interface ProductModelInterFace {
+  _id: mongoose.Type.ObjectId;
+  name: string;
+  description: string;
+  category: string;
+  price: number;
+  seller: mongoose.Types.ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
+  __v?: number;
+
+}

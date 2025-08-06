@@ -9,14 +9,6 @@ export interface IProduct {
     updatedAt: Date;
   }
   
-  export interface ISeller {
-    id: string;
-    name: string;
-    location: string;
-    contact: string;
-    createdAt: Date;
-    updatedAt: Date;
-  }
   
   export interface IReview {
     id: string;

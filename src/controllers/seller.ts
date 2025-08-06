@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { sellerServices } from '../services/seller';
 import logger from '../utils/util/logger';
-import { sellerBankDetailsInputType, sellerBioInputType } from './types/controller';
+import { sellerBioInputType } from './types/controller';
 
 
 

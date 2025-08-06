@@ -1,16 +1,6 @@
 import * as Joi from 'joi';
 
 
-const stringValidator = (field: string, minLength = 2, maxLength = 50) =>
-  Joi.string().min(minLength).max(maxLength).required().messages({
-    'string.base': `${field} should be a type of string`,
-    'string.empty': `${field} cannot be empty`,
-    'string.min': `${field} should have a minimum length of {#limit}`,
-    'string.max': `${field} should have a maximum length of {#limit}`,
-    'any.required': `${field} is a required field`,
-  });
-
-
 const AddressValidator = Joi.object({
   location: Joi.string().allow(null).optional().messages({
     'string.base': 'location should be a type of string',
@@ -42,16 +32,14 @@ const BankDetailsValidator = Joi.object({
 
 
 
-const updateDriverValidator = Joi.object({
+const updateSellerValidator = Joi.object({
   address: AddressValidator.allow(null).optional(),
   bankDetails:  BankDetailsValidator.allow(null).optional
 });
 
 
-
 const sellerValidators = {
-  updateDriverValidator,
-  BankDetailsValidator,
+  updateSellerValidator,
 };
 
 
