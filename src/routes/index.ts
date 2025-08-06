@@ -1,13 +1,13 @@
 import { Router } from 'express';
-import { getProducts, getProduct } from '../controllers/product';
+import ProductRouter from './product';
 import authRouter from './authentication';
 import sellerRouter from './seller';
+
 
 const router = Router();
 
 // Product routes
-router.get('/products', getProducts);
-router.get('/products/:id', getProduct);
+router.use('/products', ProductRouter);
 
 // Seller routes
 router.use('/sellers', sellerRouter);

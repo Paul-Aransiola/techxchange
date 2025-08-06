@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import { SellerModelInterface, UserModelInterface } from '../../@types/model';
+import { ProductModelInterFace, SellerModelInterface, UserModelInterface } from '../../@types/model';
 
 
 export type registerInputType = Pick<
@@ -25,3 +25,9 @@ BankDetailsInterface,
 export type sellerBioInputType = Pick<SellerModelInterface, 'address' | 'bankDetails'>;
 
 export type IdType = mongoose.Schema.Types.ObjectId;
+
+
+export type productInputType = Pick<
+  ProductModelInterFace,
+  'name' | 'description' | 'category' | 'price'
+>;

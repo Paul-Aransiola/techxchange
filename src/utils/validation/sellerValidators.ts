@@ -42,7 +42,7 @@ const BankDetailsValidator = Joi.object({
 
 
 
-const updateDriverValidator = Joi.object({
+const updateSellerValidator = Joi.object({
   address: AddressValidator.allow(null).optional(),
   bankDetails:  BankDetailsValidator.allow(null).optional
 });
@@ -50,7 +50,7 @@ const updateDriverValidator = Joi.object({
 
 
 const sellerValidators = {
-  updateDriverValidator,
+  updateSellerValidator,
   BankDetailsValidator,
 };
 

@@ -1,5 +1,7 @@
 export enum MODELS {
   USER = 'user',
+  SELLER = 'seller',
+  PRODUCT = 'product'
 }
 
 export enum ROLES {

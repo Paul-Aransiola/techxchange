@@ -38,6 +38,6 @@ const SellerSchema = new Schema<SellerModelInterface>(
   { timestamps: true }
 );
 
-const sellerModel = model<SellerModelInterface>('Seller', SellerSchema);
+const sellerModel = model<SellerModelInterface>(MODELS.SELLER, SellerSchema);
 
 export default  sellerModel
