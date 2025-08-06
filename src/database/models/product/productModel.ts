@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
+import { ProductModelInterFace } from '../../../@types/model';
+import { MODELS } from '../../../utils/util/constants';
 
-import { MODELS } from '../../utils/util/constants';
-import { ProductModelInterFace } from '../../@types/model';
 
 
 const ProductSchema = new Schema<ProductModelInterFace>({

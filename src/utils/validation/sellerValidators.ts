@@ -1,46 +1,41 @@
 import * as Joi from 'joi';
 
-
+// 1. Address Schema (Simplified and Strict)
 const AddressValidator = Joi.object({
-  location: Joi.string().allow(null).optional().messages({
-    'string.base': 'location should be a type of string',
+  location: Joi.string().optional().messages({
+    'string.base': 'Location must be a string',
   }),
-  city: Joi.string().allow(null).optional().messages({
-    'string.base': 'city should be a type of string',
+  city: Joi.string().optional().messages({
+    'string.base': 'City must be a string',
   }),
-  state: Joi.string().allow(null).optional().messages({
-    'string.base': 'state should be a type of string',
+  state: Joi.string().optional().messages({
+    'string.base': 'State must be a string',
   }),
-}).optional();
+}).optional(); // `.allow(null)` is redundant with `.optional()`
 
-
-
+// 2. Bank Details Schema (Fixed Typo)
 const BankDetailsValidator = Joi.object({
-  bankName: Joi.string().allow(null).optional().messages({
-    'string.base': 'Bank should be a type of string',
+  bankName: Joi.string().optional().messages({
+    'string.base': 'Bank name must be a string',
   }),
-  bankCode: Joi.string().allow(null).optional().messages({
-    'string.base': 'Bank code should be a type of string',
+  bankCode: Joi.string().optional().messages({
+    'string.base': 'Bank code must be a string',
   }),
-  accountName: Joi.string().allow(null).optional().messages({
-    'string.base': 'Account name should be a type of string',
+  accountName: Joi.string().optional().messages({
+    'string.base': 'Account name must be a string',
   }),
-  accountNumber: Joi.string().allow(null).optional().messages({
-    'string.base': 'Account number must be string',
-  })
+  accountNumber: Joi.string().optional().messages({
+    'string.base': 'Account number must be a string',
+  }),
 }).optional();
 
-
-
+// 3. Update Seller Schema (Fixed Syntax Error)
 const updateSellerValidator = Joi.object({
-  address: AddressValidator.allow(null).optional(),
-  bankDetails:  BankDetailsValidator.allow(null).optional
+  address: AddressValidator,
+  bankDetails: BankDetailsValidator, 
 });
 
-
-const sellerValidators = {
+// 4. Export Validators
+export default {
   updateSellerValidator,
 };
-
-
-export default sellerValidators;

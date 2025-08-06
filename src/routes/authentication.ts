@@ -18,6 +18,14 @@ authRouter.post(
 
 
 authRouter.post(
+  '/buyer/sign-up',
+  globalValidationMiddleware.inputMiddleware(authenticationValidation.registerUser),
+  assignRoleMiddleware(ROLES.BUYER),
+  authenticationController.userRegistrationHandler
+);
+
+
+authRouter.post(
   '/sign-in',
   globalValidationMiddleware.inputMiddleware(authenticationValidation.signInUser),
   authenticationController.userSignInHandler

@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 
-import { productServices } from "../services/product";
-import logger from "../utils/util/logger";
-import { productInputType } from './types/controller';
+import { productServices } from "../../services/product/product";
+import logger from "../../utils/util/logger";
+import { productInputType } from '../types/controller';
 
 
 

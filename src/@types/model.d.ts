@@ -52,3 +52,16 @@ export interface ProductModelInterFace {
   __v?: number;
 
 }
+
+
+export interface ReviewModelInterface {
+    _id: mongoose.Type.ObjectId;
+    text: string;
+    rating: number;
+    user: mongoose.Types.ObjectId;
+    product: mongoose.Types.ObjectId;
+    createdAt: Date;
+    updatedAt: Date;
+    __v?: number;
+
+}

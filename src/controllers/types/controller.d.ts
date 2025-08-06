@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import { ProductModelInterFace, SellerModelInterface, UserModelInterface } from '../../@types/model';
+import { ProductModelInterFace, ReviewModelInterface, SellerModelInterface, UserModelInterface } from '../../@types/model';
 
 
 export type registerInputType = Pick<
@@ -31,3 +31,9 @@ export type productInputType = Pick<
   ProductModelInterFace,
   'name' | 'description' | 'category' | 'price'
 >;
+
+
+export type reviewInputType = Pick<
+  ReviewModelInterface,
+  'text' | 'rating'
+>
