@@ -31,6 +31,13 @@ A comprehensive marketplace backend for tech products built with Node.js, Expres
   - Seller profiles and bio management
   - View seller products
 
+- **News & Information**
+  - Real-time tech news integration
+  - Search technology news
+  - Popular tech source aggregation
+  - Intelligent caching system
+  - Scheduled data refresh
+
 - **Security**
   - Input validation with Joi
   - Password hashing with bcrypt
@@ -101,7 +108,16 @@ Before running this project, make sure you have the following installed:
    # JWT Configuration
    JWT_SECRET=your-super-secret-jwt-key-here
    
-3. **Database Setup**
+   # External API Configuration
+   NEWS_API_KEY=your-newsapi-org-api-key-here
+   NEWS_API_BASE_URL=https://newsapi.org/v2
+   CACHE_DURATION_MINUTES=30
+   
+   # Other configurations (optional)
+   SALT_ROUNDS=10
+   MAX_LOGIN_ATTEMPTS=3
+   TOKEN_LIFE_SPAN=120h
+   ```3. **Database Setup**
    - For local MongoDB: Ensure MongoDB is running on your machine
    - For MongoDB Atlas: Create a cluster and get your connection string
 
@@ -244,6 +260,44 @@ Base URL: `http://localhost:4000/api/v1`
 
 - **GET** `/sellers/:id/products`
 - **Auth**: Bearer token required
+
+### News Endpoints
+
+#### Get Tech News
+- **GET** `/news/tech`
+- **Auth**: None required
+- **Query Parameters**:
+  - `q` - Search query (optional)
+  - `page` - Page number (optional)
+  - `pageSize` - Number of articles per page (optional, max 20)
+  - `sortBy` - Sort by relevancy, popularity, or publishedAt (optional)
+
+#### Get Tech Headlines
+- **GET** `/news/headlines`
+- **Auth**: None required
+- **Query Parameters**:
+  - `country` - Country code (optional, default: 'us')
+
+#### Search Tech News
+- **GET** `/news/search`
+- **Auth**: None required
+- **Query Parameters**:
+  - `q` - Search query (required)
+  - `page` - Page number (optional)
+  - `pageSize` - Number of articles per page (optional)
+  - `sortBy` - Sort by relevancy, popularity, or publishedAt (optional)
+
+#### Get News from Tech Sources
+- **GET** `/news/sources`
+- **Auth**: None required
+
+#### Get Cache Statistics (Admin only)
+- **GET** `/news/cache/stats`
+- **Auth**: Bearer token required (Admin role)
+
+#### Clear Expired Cache (Admin only)
+- **POST** `/news/cache/clear`
+- **Auth**: Bearer token required (Admin role)
 
 ### Authentication
 
