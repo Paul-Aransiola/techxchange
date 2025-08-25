@@ -45,7 +45,7 @@ class NewsService {
       };
 
       const response = await axios.get<NewsApiResponse>(
-        `${this.baseUrl}/latest`,
+        `${this.baseUrl}/everything`,
         {
           params: {
             ...defaultQuery,
@@ -54,6 +54,7 @@ class NewsService {
           timeout: 10000, // 10 seconds timeout
         }
       );
+      console.log(response.data)
 
       if (response.data.status !== 'ok') {
         throw new Error(`News API error: ${response.data.status}`);

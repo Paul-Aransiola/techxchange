@@ -9,14 +9,72 @@ const getAllReviews = async (
   productId: string,
   filter: ReviewFilter = {},
   pagination: PaginationOptions = {}
-): Promise<ReviewModelInterface[]> => {
+): Promise<{
+  reviews: ReviewModelInterface[];
+  totalReviews: number;
+  totalPages: number;
+  currentPage: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+  averageRating: number;
+}> => {
   const { page = 1, limit = 10 } = pagination;
-  return await reviewModel
-    .find({ product: productId, ...filter })
+  
+  // Build rating filter
+  const ratingFilter: any = {};
+  if (filter.minRating) {
+    ratingFilter.rating = { ...ratingFilter.rating, $gte: Number(filter.minRating) };
+  }
+  if (filter.maxRating) {
+    ratingFilter.rating = { ...ratingFilter.rating, $lte: Number(filter.maxRating) };
+  }
+
+  // Build search filter
+  const searchFilter: any = {};
+  if (filter.search) {
+    searchFilter.text = { $regex: filter.search, $options: 'i' };
+  }
+
+  // Combine all filters
+  const finalFilter = {
+    product: productId,
+    ...ratingFilter,
+    ...searchFilter,
+    ...Object.fromEntries(
+      Object.entries(filter).filter(([key]) => 
+        !['minRating', 'maxRating', 'search', 'page', 'limit'].includes(key)
+      )
+    )
+  };
+
+  const totalReviews = await reviewModel.countDocuments(finalFilter);
+  const totalPages = Math.ceil(totalReviews / limit);
+  
+  const reviews = await reviewModel
+    .find(finalFilter)
     .populate('product')
     .populate('user')
+    .sort({ createdAt: -1 })
     .skip((page - 1) * limit)
     .limit(limit);
+
+  // Calculate average rating
+  const ratingStats = await reviewModel.aggregate([
+    { $match: { product: productId } },
+    { $group: { _id: null, averageRating: { $avg: '$rating' } } }
+  ]);
+  
+  const averageRating = ratingStats.length > 0 ? Math.round(ratingStats[0].averageRating * 10) / 10 : 0;
+
+  return {
+    reviews,
+    totalReviews,
+    totalPages,
+    currentPage: page,
+    hasNextPage: page < totalPages,
+    hasPrevPage: page > 1,
+    averageRating
+  };
 };
 
 

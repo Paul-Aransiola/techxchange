@@ -264,6 +264,7 @@ Base URL: `http://localhost:4000/api/v1`
 ### News Endpoints
 
 #### Get Tech News
+
 - **GET** `/news/tech`
 - **Auth**: None required
 - **Query Parameters**:
@@ -273,12 +274,14 @@ Base URL: `http://localhost:4000/api/v1`
   - `sortBy` - Sort by relevancy, popularity, or publishedAt (optional)
 
 #### Get Tech Headlines
+
 - **GET** `/news/headlines`
 - **Auth**: None required
 - **Query Parameters**:
   - `country` - Country code (optional, default: 'us')
 
 #### Search Tech News
+
 - **GET** `/news/search`
 - **Auth**: None required
 - **Query Parameters**:
@@ -288,14 +291,17 @@ Base URL: `http://localhost:4000/api/v1`
   - `sortBy` - Sort by relevancy, popularity, or publishedAt (optional)
 
 #### Get News from Tech Sources
+
 - **GET** `/news/sources`
 - **Auth**: None required
 
 #### Get Cache Statistics (Admin only)
+
 - **GET** `/news/cache/stats`
 - **Auth**: Bearer token required (Admin role)
 
 #### Clear Expired Cache (Admin only)
+
 - **POST** `/news/cache/clear`
 - **Auth**: Bearer token required (Admin role)
 
