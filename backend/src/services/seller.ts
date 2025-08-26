@@ -67,8 +67,14 @@ const getAllSellers = async (
 };
 
 
-const getSellerById = async (user_id: string) => {
-  const seller = await sellerModel.findOne({ user: user_id }).populate('user');
+const getSellerById = async (id: string) => {
+  // First try to find by seller ID (_id)
+  let seller = await sellerModel.findById(id).populate('user');
+  
+  // If not found, try to find by user ID
+  if (!seller) {
+    seller = await sellerModel.findOne({ user: id }).populate('user');
+  }
 
   if (!seller) {
     throw new Error('Seller not found.');

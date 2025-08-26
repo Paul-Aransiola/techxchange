@@ -2,55 +2,27 @@ import { Router } from 'express';
 import { newsController } from '../controllers/external/newsController';
 import { authorizeMiddleware } from '../middlewares/auth/authorization';
 import { ROLES } from '../utils/util/constants';
+import { newsLimiter, adminLimiter } from '../middlewares/rateLimiter';
 
 const newsRouter = Router();
 
-/**
- * @route GET /api/v1/news/tech
- * @desc Get general tech news
- * @access Public
- */
-newsRouter.get('/tech', newsController.getTechNews);
+// Apply news rate limiting to public news routes
+newsRouter.get('/tech', newsLimiter, newsController.getTechNews);
+newsRouter.get('/headlines', newsLimiter, newsController.getTechHeadlines);
+newsRouter.get('/search', newsLimiter, newsController.searchTechNews);
+newsRouter.get('/sources', newsLimiter, newsController.getNewsFromTechSources);
 
-/**
- * @route GET /api/v1/news/headlines
- * @desc Get tech headlines
- * @access Public
- */
-newsRouter.get('/headlines', newsController.getTechHeadlines);
-
-/**
- * @route GET /api/v1/news/search
- * @desc Search tech news by keyword
- * @access Public
- */
-newsRouter.get('/search', newsController.searchTechNews);
-
-/**
- * @route GET /api/v1/news/sources
- * @desc Get news from popular tech sources
- * @access Public
- */
-newsRouter.get('/sources', newsController.getNewsFromTechSources);
-
-/**
- * @route GET /api/v1/news/cache/stats
- * @desc Get cache statistics (for monitoring)
- * @access Private (Admin only)
- */
+// Admin routes with rate limiting
 newsRouter.get(
   '/cache/stats',
+  adminLimiter,
   authorizeMiddleware([ROLES.ADMIN]),
   newsController.getCacheStats
 );
 
-/**
- * @route POST /api/v1/news/cache/clear
- * @desc Clear expired cache entries
- * @access Private (Admin only)
- */
 newsRouter.post(
   '/cache/clear',
+  adminLimiter,
   authorizeMiddleware([ROLES.ADMIN]),
   newsController.clearExpiredCache
 );

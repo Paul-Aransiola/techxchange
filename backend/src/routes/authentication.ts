@@ -5,9 +5,12 @@ import globalValidationMiddleware from '../middlewares/globalValidation';
 import authenticationValidation from '../utils/validation/authenticationValidation';
 import { ROLES } from '../utils/util/constants';
 import { assignRoleMiddleware } from '../middlewares/assignRoleMiddleware';
+import { authLimiter } from '../middlewares/rateLimiter';
 
 const authRouter = Router();
 
+// Apply auth rate limiting to all auth routes
+authRouter.use(authLimiter);
 
 authRouter.post(
   '/seller/sign-up',

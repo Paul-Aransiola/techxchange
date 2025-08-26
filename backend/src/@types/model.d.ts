@@ -46,6 +46,7 @@ export interface ProductModelInterFace {
   description: string;
   category: string;
   price: number;
+  images?: string[];
   seller: mongoose.Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;

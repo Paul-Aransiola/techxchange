@@ -2,7 +2,9 @@ export enum MODELS {
   USER = 'user',
   SELLER = 'seller',
   PRODUCT = 'product',
-  REVIEW = 'review'
+  REVIEW = 'review',
+  MESSAGE = 'message',
+  CART = 'cart'
 }
 
 export enum ROLES {

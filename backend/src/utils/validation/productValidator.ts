@@ -27,6 +27,12 @@ const productDetails = Joi.object({
     'number.base': 'Product price should be a type of number',
     'number.greater': 'Product price must be greater than 0',
     'any.required': 'Product price is a required field',
+  }),
+
+  images: Joi.array().items(Joi.string().uri()).max(5).optional().messages({
+    'array.base': 'Images should be an array',
+    'array.max': 'Maximum 5 images are allowed',
+    'string.uri': 'Each image should be a valid URL',
   })
 });
 

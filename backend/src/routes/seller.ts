@@ -19,7 +19,13 @@ sellerRouter.put(
   sellerBioHandler.updateSellerBioHandler
   );
   
+// Get authenticated seller's own products
+sellerRouter.get(
+  '/products', 
+  authorizeMiddleware([ROLES.SELLER]), 
+  productHandler.getAuthenticatedSellerProductsHandler);
     
+// Get any seller's products by ID (public endpoint)
 sellerRouter.get(
   '/:id/products', 
   authorizeMiddleware([ROLES.SELLER, ROLES.BUYER]), 

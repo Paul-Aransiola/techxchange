@@ -29,7 +29,7 @@ export type IdType = mongoose.Schema.Types.ObjectId;
 
 export type productInputType = Pick<
   ProductModelInterFace,
-  'name' | 'description' | 'category' | 'price'
+  'name' | 'description' | 'category' | 'price' | 'images'
 >;
 
 

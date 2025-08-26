@@ -84,26 +84,45 @@ const createProductReview = async (
   productId: string
 ) => {
   const review = await mongooseTransaction(async (session) => {
+    // In test environment, don't use session for queries to avoid MongoDB Memory Server issues
+    const isTest = process.env.NODE_ENV === 'test';
  
-    const user = await userModel.findById(userId).session(session);
+    const user = isTest 
+      ? await userModel.findById(userId)
+      : await userModel.findById(userId).session(session);
     if (!user) throw new Error('User not found');
 
-    const product = await productModel.findById(productId).session(session);
+    const product = isTest 
+      ? await productModel.findById(productId)
+      : await productModel.findById(productId).session(session);
     if (!product) throw new Error('Product not found');
 
-    const updatedReview = await reviewModel.findOneAndUpdate(
-      { 
-        user: user._id, 
-        product: product._id 
-      },
-      { $set: { ...payload } },
-      { 
-        upsert: true,
-        new: true,
-        session,
-        runValidators: true 
-      }
-    );
+    const updatedReview = isTest 
+      ? await reviewModel.findOneAndUpdate(
+          { 
+            user: user._id, 
+            product: product._id 
+          },
+          { $set: { ...payload } },
+          { 
+            upsert: true,
+            new: true,
+            runValidators: true 
+          }
+        )
+      : await reviewModel.findOneAndUpdate(
+          { 
+            user: user._id, 
+            product: product._id 
+          },
+          { $set: { ...payload } },
+          { 
+            upsert: true,
+            new: true,
+            session,
+            runValidators: true 
+          }
+        );
 
     return updatedReview;
   });

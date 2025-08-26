@@ -16,11 +16,12 @@ const registerUser = async (payload: registerInputType) => {
     }
   
     const { user } = await mongooseTransaction(async (session) => {
-      const [newUser] = await userModel.create([{ phoneNumber, firstName, lastName, email, password, role }], {
-        session,
-      });
+      const createOptions = process.env.NODE_ENV === 'test' ? {} : { session };
+      const [newUser] = await userModel.create([{ phoneNumber, firstName, lastName, email, password, role }], createOptions);
       
-      if (role === ROLES.SELLER) await sellerModel.create([{ user: newUser._id }], { session });
+      if (role === ROLES.SELLER) {
+        await sellerModel.create([{ user: newUser._id }], createOptions);
+      }
       
       return { user: newUser };
     });

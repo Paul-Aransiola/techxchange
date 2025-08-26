@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { productServices } from "../../services/product/product";
 import logger from "../../utils/util/logger";
 import { productInputType } from '../types/controller';
+import { getImageUrl } from '../../middlewares/fileUpload';
 
 
 
@@ -50,7 +51,7 @@ const getAllProductsHandler = async (req: Request, res: Response) => {
       filters,
       { page: Number(page), limit: Number(limit) }
     );
-    logger.info(`Products retrieved`);
+    logger.info(`Products retrieved`, products);
     res.status(200).json({
       success: true,
       message: "All products retrieved successfully",
@@ -95,15 +96,56 @@ const getAllSellerProductsHandler = async (req: Request, res: Response) => {
   }
 };
 
+const getAuthenticatedSellerProductsHandler = async (req: Request, res: Response) => {
+  const { id } = req.user; // Get authenticated user's ID
+  try {
+    const { page = 1, limit = 10, ...filters } = req.query;
+    const products = await productServices.getAllSellerProducts(
+      id as string,
+      filters,
+      { page: Number(page), limit: Number(limit) },
+      true // isUserId flag - we're passing a user ID, not seller ID
+    );
+    logger.info(`Authenticated seller products retrieved for user ${id}`);
+    res.status(200).json({
+      success: true,
+      message: "Your products retrieved successfully",
+      data: products,
+    });
+  } catch (error: unknown) {
+    const errMsg = (error as Error).message;
+    logger.error(`Error retrieving authenticated seller products: ${errMsg}`);
+    res.status(400).json({
+      success: false,
+      message: 'Failed to retrieve your products',
+      error: errMsg,
+    });
+  }
+};
+
 
 const createProductHandler = async (req: Request, res: Response) => {
   const { id } = req.user;
   const payload = req.body as productInputType;
 
   try {
-    const product = await productServices.createProduct(payload, id as string);
+    // Handle uploaded images
+    const uploadedFiles = req.files as Express.Multer.File[];
+    let imagePaths: string[] = [];
+    
+    if (uploadedFiles && uploadedFiles.length > 0) {
+      imagePaths = uploadedFiles.map(file => `/uploads/products/${file.filename}`);
+    }
+
+    // Add image paths to payload
+    const productData = {
+      ...payload,
+      images: imagePaths
+    };
+
+    const product = await productServices.createProduct(productData, id as string);
     logger.info(`Product created for user with ID ${id}`);
-    res.status(200).json({
+    res.status(201).json({
       success: true,
       message: 'Product created successfully',
       data: product,
@@ -128,7 +170,21 @@ const updateProductHandler = async (req: Request, res: Response) => {
   const payload = req.body as productInputType;
 
   try {
-    const product = await productServices.updateProduct(payload, id as string, userId as string);
+    // Handle uploaded images
+    const uploadedFiles = req.files as Express.Multer.File[];
+    let imagePaths: string[] = [];
+    
+    if (uploadedFiles && uploadedFiles.length > 0) {
+      imagePaths = uploadedFiles.map(file => `/uploads/products/${file.filename}`);
+    }
+
+    // Add image paths to payload if new images were uploaded
+    const productData = {
+      ...payload,
+      ...(imagePaths.length > 0 && { images: imagePaths })
+    };
+
+    const product = await productServices.updateProduct(productData, id as string, userId as string);
     logger.info(`Product updated `);
     res.status(200).json({
       success: true,
@@ -154,6 +210,7 @@ export const productHandler = {
   getProductHandler,
   createProductHandler,
   getAllSellerProductsHandler,
+  getAuthenticatedSellerProductsHandler,
   updateProductHandler
 
 };

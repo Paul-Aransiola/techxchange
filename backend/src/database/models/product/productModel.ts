@@ -27,6 +27,16 @@ const ProductSchema = new Schema<ProductModelInterFace>({
     type: Number,
     required: true,
   },
+  images: {
+    type: [String],
+    default: [],
+    validate: {
+      validator: function(images: string[]) {
+        return images.length <= 5; // Maximum 5 images per product
+      },
+      message: 'A product can have maximum 5 images'
+    }
+  },
   seller: {
     type: Schema.Types.ObjectId,
     ref: MODELS.SELLER,

@@ -5,6 +5,7 @@ import globalValidationMiddleware from '../middlewares/globalValidation';
 import productValidators from '../utils/validation/productValidator';
 import { authorizeMiddleware } from '../middlewares/auth/authorization';
 import { ROLES } from '../utils/util/constants';
+import { uploadMultipleImages, handleUploadError } from '../middlewares/fileUpload';
 
 const ProductRouter = Router();
 
@@ -13,6 +14,8 @@ ProductRouter.get('/', productHandler.getAllProductsHandler);
 ProductRouter.post(
     '/',
     authorizeMiddleware([ROLES.SELLER]),
+    uploadMultipleImages,
+    handleUploadError,
     globalValidationMiddleware.inputMiddleware(productValidators.productDetails),
     productHandler.createProductHandler
 )
@@ -20,6 +23,8 @@ ProductRouter.post(
 ProductRouter.put(
     '/:id',
     authorizeMiddleware([ROLES.SELLER]),
+    uploadMultipleImages,
+    handleUploadError,
     globalValidationMiddleware.inputMiddleware(productValidators.productDetails),
     productHandler.updateProductHandler
 )
