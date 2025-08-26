@@ -140,7 +140,7 @@ Before running this project, ensure you have:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Paul-Aransiola/techxchange.git
+git clone [https://github.com/Paul-Aransiola/techxchange.git](https://github.com/Paul-Aransiola/techxchange.git)
 cd techxchange
 ```
 
