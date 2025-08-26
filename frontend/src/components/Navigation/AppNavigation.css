@@ -1,0 +1,196 @@
+.app-navigation-logo {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 8px;
+}
+
+.app-navigation-sider {
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+}
+
+.app-navigation-header {
+  padding: 0 24px;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 99;
+  position: sticky;
+  top: 0;
+  height: 64px;
+}
+
+.app-navigation-header-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.app-navigation-header .ant-space {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.app-navigation-user-info {
+  text-align: left;
+}
+
+.app-navigation-content {
+  margin: 24px 16px 0;
+}
+
+.app-navigation-content-mobile {
+  margin: 16px 8px;
+}
+
+.app-navigation-content-inner {
+  padding: 24px;
+  min-height: 360px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.app-navigation-content-inner-mobile {
+  padding: 16px;
+  min-height: 360px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.app-navigation-user-dropdown {
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.app-navigation-user-info {
+  text-align: left;
+  line-height: 1.2;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-navigation-user-info .ant-typography {
+  margin: 0 !important;
+}
+
+.app-navigation-menu {
+  border: none;
+}
+
+/* Hover effects */
+.app-navigation-user-dropdown:hover {
+  background-color: #f5f5f5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .app-navigation-header {
+    padding: 0 16px;
+  }
+  
+  .app-navigation-content {
+    margin: 16px 8px;
+  }
+  
+  .app-navigation-title {
+    font-size: 18px !important;
+  }
+}
+
+/* Button and icon alignments */
+.app-navigation-header .ant-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+}
+
+.app-navigation-header .ant-btn-text {
+  color: #666;
+  border: none;
+  background: transparent;
+}
+
+.app-navigation-header .ant-btn-text:hover {
+  color: #1890ff;
+  background-color: #f0f0f0;
+}
+
+.app-navigation-header .ant-badge {
+  display: flex;
+  align-items: center;
+}
+
+/* Custom menu item styles */
+.ant-menu-item {
+  border-radius: 8px !important;
+  margin: 4px 8px !important;
+}
+
+.ant-menu-item-selected {
+  background-color: #e6f7ff !important;
+  border-color: #1890ff !important;
+}
+
+.ant-menu-item:hover {
+  background-color: #f0f0f0 !important;
+}
+
+/* Drawer title styles */
+.app-navigation-drawer-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Logo animation */
+.app-navigation-logo h4 {
+  transition: all 0.3s ease;
+}
+
+/* Header title responsive */
+.app-navigation-title {
+  margin: 0 !important;
+  color: #1890ff !important;
+  transition: all 0.3s ease;
+}
+
+/* Notification badge */
+.app-navigation-notification {
+  color: #666;
+}
+
+.app-navigation-notification:hover {
+  color: #1890ff;
+}
+
+/* Improved space component styling */
+.app-navigation-header .ant-space-item {
+  display: flex;
+  align-items: center;
+}
+
+/* Better menu item badge alignment */
+.app-navigation-menu .ant-menu-item .ant-badge {
+  margin-left: 4px;
+}
+
+/* Smooth transitions */
+.app-navigation-user-dropdown:hover {
+  background-color: #f5f5f5;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
